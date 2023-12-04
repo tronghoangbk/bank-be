@@ -1,0 +1,24 @@
+import express from "express";
+import { AccountController } from "../controllers/account.controller";
+import { upload } from "../config/upload.config";
+
+const APIRouter = express.Router();
+const accountController = new AccountController();
+
+APIRouter.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+APIRouter.post(
+  "/account/signup",
+  upload.fields([
+    { name: "frontIdCard", maxCount: 1 },
+    { name: "backIdCard", maxCount: 1 },
+    { name: "frontCard", maxCount: 1 },
+    { name: "backCard", maxCount: 1 },
+  ]),
+  accountController.signup
+);
+APIRouter.get("/account", accountController.getAll);
+
+export default APIRouter;
