@@ -5,7 +5,6 @@ import mongoose, { ConnectOptions } from "mongoose";
 // import { Server } from "socket.io";
 const socketIO = require("socket.io");
 import bodyParser from "body-parser";
-
 import dotenv from "dotenv";
 import path from "path";
 import cors from "cors";

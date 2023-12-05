@@ -69,6 +69,10 @@ const accountSchema = new Schema(
       type: Array,
       //   required: true,
     },
+    otp: {
+      type: Number,
+      //   required: true,
+    },
   },
   {
     timestamps: true,
