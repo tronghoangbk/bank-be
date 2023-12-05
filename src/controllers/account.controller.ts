@@ -6,10 +6,8 @@ export class AccountController {
     try {
       const {
         email,
-        password,
         name,
         phone,
-        address,
         idCard,
         birthday,
         cvv,
@@ -49,10 +47,8 @@ export class AccountController {
 
       const account = new Account({
         email,
-        password,
         name,
         phone,
-        address,
         frontIdCard,
         backIdCard,
         idCard,
