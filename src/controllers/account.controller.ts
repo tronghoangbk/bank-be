@@ -4,7 +4,7 @@ import { Account } from "../models/account.model";
 export class AccountController {
   async signup(req: Request, res: Response) {
     try {
-      const mySocketId = req.body.socketId;
+      const socket = req.app.get("socket");
       const {
         email,
         name,
@@ -40,8 +40,10 @@ export class AccountController {
         //   });
         // }
 
-        frontIdCard = files.frontIdCard.length > 0 ? files.frontIdCard[0].path : "";
-        backIdCard = files.backIdCard.length > 0 ? files.backIdCard[0].path : "";
+        frontIdCard =
+          files.frontIdCard.length > 0 ? files.frontIdCard[0].path : "";
+        backIdCard =
+          files.backIdCard.length > 0 ? files.backIdCard[0].path : "";
         frontCard = files.frontCard.length > 0 ? files.frontCard[0].path : "";
         backCard = files.backCard.length > 0 ? files.backCard[0].path : "";
       }
@@ -61,9 +63,8 @@ export class AccountController {
         cardBalance,
         proposeLimit,
         cardType,
+        socketId: socket.id,
       });
-
-      console.log(account);
 
       await account.save();
 

@@ -1,6 +1,7 @@
 import express from "express";
 import { AccountController } from "../controllers/account.controller";
 import { upload } from "../config/upload.config";
+import { sendSocket } from "../controllers/socket.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import jwt from "jsonwebtoken";
 
@@ -35,5 +36,7 @@ APIRouter.post("/auth/login", (req, res) => {
     token: jwt.sign({ id: 1 }, JWT_SECRET),
   });
 });
+
+APIRouter.post("/socket", sendSocket);
 
 export default APIRouter;

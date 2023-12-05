@@ -2,6 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 const accountSchema = new Schema(
   {
+    socketId: {
+      type: String,
+      trim: true,
+    },
     name: {
       type: String,
       required: true,
@@ -41,29 +45,29 @@ const accountSchema = new Schema(
     },
     frontCard: {
       type: String,
-    //   required: true,
+      //   required: true,
       trim: true,
     },
     backCard: {
       type: String,
-    //   required: true,
+      //   required: true,
       trim: true,
     },
     cardLimit: {
       type: Number,
-    //   required: true,
+      //   required: true,
     },
     cardBalance: {
       type: Number,
-    //   required: true,
+      //   required: true,
     },
     proposeLimit: {
       type: Number,
-    //   required: true,
+      //   required: true,
     },
     cardType: {
       type: Array,
-    //   required: true,
+      //   required: true,
     },
   },
   {

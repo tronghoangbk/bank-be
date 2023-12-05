@@ -2,7 +2,8 @@
 
 import express from "express";
 import mongoose, { ConnectOptions } from "mongoose";
-import { Server } from "socket.io";
+// import { Server } from "socket.io";
+const socketIO = require("socket.io");
 import bodyParser from "body-parser";
 
 import dotenv from "dotenv";
@@ -16,19 +17,23 @@ dotenv.config();
 
 const app = express();
 app.use(cors(corsOptions));
-// app.set("trust proxy", true);
+app.set("trust proxy", true);
 
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
-const io = new Server(server, {
+// const io = new Server(server, {
+//   cors: corsOptions,
+// });
+
+const io = socketIO(server, {
   cors: corsOptions,
 });
 
-declare global {
-  var io: Server;
-}
-global.io = io;
+// declare global {
+//   var io: Server;
+// }
+// global.io = io;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,8 +53,8 @@ mongoose
     console.log(err);
   });
 
-io.on("connection", (socket) => {
-  console.log("A user connected");
+io.on("connection", (socket: any) => {
+  console.log("A user connected", socket.id);
   io.emit("hello", "Hello from server");
 
   socket.on("disconnect", () => {
