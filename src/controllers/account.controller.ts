@@ -72,9 +72,8 @@ export class AccountController {
         message: "Signup successfully",
       });
     } catch (error: any) {
-      console.log(error.message);
       return res.status(500).json({
-        message: "Internal server error",
+        message: error.message,
       });
     }
   }
@@ -86,10 +85,9 @@ export class AccountController {
       return res.status(200).json({
         accounts,
       });
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
       return res.status(500).json({
-        message: "Internal server error",
+        message: error.message,
       });
     }
   }

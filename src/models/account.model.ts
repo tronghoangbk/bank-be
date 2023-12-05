@@ -22,17 +22,14 @@ const accountSchema = new Schema(
     },
     frontIdCard: {
       type: String,
-      required: true,
       trim: true,
     },
     backIdCard: {
       type: String,
-      required: true,
       trim: true,
     },
     idCard: {
       type: String,
-      required: true,
       trim: true,
     },
     birthday: {
@@ -41,7 +38,6 @@ const accountSchema = new Schema(
     },
     cvv: {
       type: Number,
-      required: true,
     },
     frontCard: {
       type: String,
