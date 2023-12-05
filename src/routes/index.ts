@@ -1,7 +1,10 @@
 import express from "express";
 import { AccountController } from "../controllers/account.controller";
 import { upload } from "../config/upload.config";
+import { authMiddleware } from "../middlewares/auth.middleware";
+import jwt from "jsonwebtoken";
 
+const JWT_SECRET = process.env.JWT_SECRET || "secret";
 const APIRouter = express.Router();
 const accountController = new AccountController();
 
@@ -20,5 +23,17 @@ APIRouter.post(
   accountController.signup
 );
 APIRouter.get("/account", accountController.getAll);
+APIRouter.post("/auth/login", (req, res) => {
+  const { email, password } = req.body;
+
+  if (email !== "admin" || password !== "admin") {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+  res.status(200).json({
+    token: jwt.sign({ id: 1 }, JWT_SECRET),
+  });
+});
 
 export default APIRouter;

@@ -15,28 +15,44 @@ import routes from "./routes";
 dotenv.config();
 
 const app = express();
+app.use(cors(corsOptions));
+// app.set("trust proxy", true);
+
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
-export const io = new Server(server);
+const io = new Server(server, {
+  cors: corsOptions,
+});
 
-mongoose
-  .connect(process.env.MONGODB_URI!)
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+declare global {
+  var io: Server;
+}
+global.io = io;
 
-// Configure Express
-app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cookieParser());
 app.use("/api", routes);
 app.use(express.static(path.join(__dirname, "public")));
 
-server.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+mongoose
+  .connect(process.env.MONGODB_URI!)
+  .then(() => {
+    console.log("Connected to MongoDB");
+    server.listen(port, () => {
+      console.log(`Listening on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+io.on("connection", (socket) => {
+  console.log("A user connected");
+  io.emit("hello", "Hello from server");
+
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+  });
 });
