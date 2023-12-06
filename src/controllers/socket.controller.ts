@@ -6,8 +6,7 @@ const sendSocket = (req: Request, res: Response) => {
     const event = req.body.event;
     const data = req.body.data;
 
-    const socket = req.app.get("socket");
-    socket.to(toSocketId).emit(event, data);
+    io.to(toSocketId).emit(event, data);
 
     res.status(200).json();
   } catch (error: any) {
