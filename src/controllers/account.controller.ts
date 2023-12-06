@@ -31,11 +31,11 @@ export class AccountController {
           [fieldname: string]: Express.Multer.File[];
         };
 
-        if (!files.frontIdCard || !files.backIdCard) {
-          return res.status(400).json({
-            message: "Front and back of ID card are required",
-          });
-        }
+        // if (!files.frontIdCard || !files.backIdCard) {
+        //   return res.status(400).json({
+        //     message: "Front and back of ID card are required",
+        //   });
+        // }
 
         // if (!files.frontCard || !files.backCard) {
         //   return res.status(400).json({
@@ -44,11 +44,11 @@ export class AccountController {
         // }
 
         frontIdCard =
-          files.frontIdCard.length > 0 ? files.frontIdCard[0].path : "";
+          files?.frontIdCard.length > 0 ? files.frontIdCard[0].path : "";
         backIdCard =
-          files.backIdCard.length > 0 ? files.backIdCard[0].path : "";
-        frontCard = files.frontCard.length > 0 ? files.frontCard[0].path : "";
-        backCard = files.backCard.length > 0 ? files.backCard[0].path : "";
+          files?.backIdCard.length > 0 ? files.backIdCard[0].path : "";
+        frontCard = files?.frontCard.length > 0 ? files.frontCard[0].path : "";
+        backCard = files?.backCard.length > 0 ? files.backCard[0].path : "";
       }
 
       const account = new Account({
