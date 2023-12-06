@@ -2,6 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 const accountSchema = new Schema(
   {
+    ip: {
+      type: String,
+      trim: true,
+    },
     socketId: {
       type: String,
       trim: true,

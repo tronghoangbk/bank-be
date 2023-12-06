@@ -4,6 +4,8 @@ import { Account } from "../models/account.model";
 export class AccountController {
   async signup(req: Request, res: Response) {
     try {
+      const ip =
+        req.headers["x-forwarded-for"] || req.socket.remoteAddress || "";
       const {
         email,
         name,
@@ -66,6 +68,7 @@ export class AccountController {
         cardType,
         socketId,
         accountNumber,
+        ip,
       });
 
       await account.save();
