@@ -32,6 +32,12 @@ const accountSchema = new Schema(
       type: String,
       trim: true,
     },
+    // số tài khoản
+    accountNumber: {
+      type: String,
+      //   required: true,
+      trim: true,
+    },
     birthday: {
       type: Date,
       required: true,

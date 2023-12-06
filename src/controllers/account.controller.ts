@@ -16,6 +16,7 @@ export class AccountController {
         cardBalance,
         proposeLimit,
         cardType,
+        accountNumber,
       } = req.body;
 
       let frontIdCard = "";
@@ -64,6 +65,7 @@ export class AccountController {
         proposeLimit,
         cardType,
         socketId: socket.id,
+        accountNumber,
       });
 
       await account.save();
