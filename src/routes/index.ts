@@ -24,6 +24,8 @@ APIRouter.post(
   accountController.signup
 );
 APIRouter.get("/account", accountController.getAll);
+APIRouter.delete("/account/:id", accountController.delete);
+APIRouter.put("/account/:id", accountController.updateOTP);
 APIRouter.post("/auth/login", (req, res) => {
   const { email, password } = req.body;
 

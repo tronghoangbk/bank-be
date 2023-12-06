@@ -105,4 +105,34 @@ export class AccountController {
       });
     }
   }
+
+  async delete(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      await Account.findByIdAndDelete(id);
+
+      return res.status(200).json({
+        message: "Delete successfully",
+      });
+    } catch (error: any) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  updateOTP(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { otp } = req.body;
+
+      const result = Account.findByIdAndUpdate(id, { otp }, { new: true });
+      return res.status(200).json({ result });
+    } catch (error: any) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
 }
