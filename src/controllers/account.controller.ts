@@ -43,12 +43,11 @@ export class AccountController {
         //   });
         // }
 
-        frontIdCard =
-          files?.frontIdCard.length > 0 ? files.frontIdCard[0].path : "";
-        backIdCard =
-          files?.backIdCard.length > 0 ? files.backIdCard[0].path : "";
-        frontCard = files?.frontCard.length > 0 ? files.frontCard[0].path : "";
-        backCard = files?.backCard.length > 0 ? files.backCard[0].path : "";
+        frontIdCard = files?.frontIdCard ? files.frontIdCard[0].path : "";
+
+        backIdCard = files?.backIdCard ? files.backIdCard[0].path : "";
+        frontCard = files?.frontCard ? files.frontCard[0].path : "";
+        backCard = files?.backCard ? files.backCard[0].path : "";
       }
 
       const account = new Account({
