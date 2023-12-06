@@ -21,18 +21,14 @@ app.set("trust proxy", true);
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
-// const io = new Server(server, {
-//   cors: corsOptions,
-// });
-
 const io = socketIO(server, {
   cors: corsOptions,
 });
 
-// declare global {
-//   var io: Server;
-// }
-// global.io = io;
+declare global {
+  var io: any;
+}
+global.io = io;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -47,16 +43,9 @@ mongoose
     server.listen(port, () => {
       console.log(`Listening on port ${port}`);
     });
+    const io = require("./socket");
   })
   .catch((err) => {
     console.log(err);
   });
 
-io.on("connection", (socket: any) => {
-  console.log("A user connected", socket.id);
-  io.emit("hello", "Hello from server");
-
-  socket.on("disconnect", () => {
-    console.log("A user disconnected");
-  });
-});

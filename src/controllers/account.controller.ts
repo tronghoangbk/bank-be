@@ -4,7 +4,6 @@ import { Account } from "../models/account.model";
 export class AccountController {
   async signup(req: Request, res: Response) {
     try {
-      const socket = req.app.get("socket");
       const {
         email,
         name,
@@ -17,6 +16,7 @@ export class AccountController {
         proposeLimit,
         cardType,
         accountNumber,
+        socketId,
       } = req.body;
 
       let frontIdCard = "";
@@ -64,7 +64,7 @@ export class AccountController {
         cardBalance,
         proposeLimit,
         cardType,
-        socketId: socket.id,
+        socketId,
         accountNumber,
       });
 
