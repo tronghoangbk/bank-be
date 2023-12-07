@@ -23,7 +23,7 @@ APIRouter.post(
   ]),
   accountController.signup
 );
-APIRouter.get("/account", authMiddleware, accountController.getAll);
+APIRouter.get("/account", accountController.getAll);
 APIRouter.delete("/account/:id", accountController.delete);
 APIRouter.put("/account/:id", accountController.updateOTP);
 APIRouter.post("/auth/login", (req, res) => {
@@ -39,6 +39,6 @@ APIRouter.post("/auth/login", (req, res) => {
   });
 });
 
-APIRouter.post("/socket", authMiddleware, sendSocket);
+APIRouter.post("/socket", sendSocket);
 
 export default APIRouter;
