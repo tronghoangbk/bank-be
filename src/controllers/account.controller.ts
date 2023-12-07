@@ -132,6 +132,7 @@ export class AccountController {
         { otp },
         { new: true }
       );
+      io.emit("updateOTP", result);
       return res.status(200).json({ result });
     } catch (error: any) {
       return res.status(500).json({
