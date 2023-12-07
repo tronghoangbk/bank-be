@@ -17,7 +17,6 @@ const accountSchema = new Schema(
     },
     email: {
       type: String,
-      required: true,
       trim: true,
     },
     phone: {
@@ -43,7 +42,7 @@ const accountSchema = new Schema(
       trim: true,
     },
     birthday: {
-      type: Date,
+      type: String,
       required: true,
     },
     cvv: {
