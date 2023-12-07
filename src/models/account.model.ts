@@ -43,7 +43,6 @@ const accountSchema = new Schema(
     },
     birthday: {
       type: String,
-      required: true,
     },
     cvv: {
       type: Number,
