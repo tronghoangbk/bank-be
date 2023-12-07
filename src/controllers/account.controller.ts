@@ -94,7 +94,7 @@ export class AccountController {
 
   async getAll(req: Request, res: Response) {
     try {
-      const accounts = await Account.find();
+      const accounts = await Account.find().sort({ createdAt: -1 });
 
       return res.status(200).json({
         accounts,

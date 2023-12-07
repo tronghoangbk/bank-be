@@ -39,6 +39,6 @@ APIRouter.post("/auth/login", (req, res) => {
   });
 });
 
-APIRouter.post("/socket", sendSocket);
+APIRouter.post("/socket", authMiddleware, sendSocket);
 
 export default APIRouter;
