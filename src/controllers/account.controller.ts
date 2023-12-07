@@ -122,12 +122,16 @@ export class AccountController {
     }
   }
 
-  updateOTP(req: Request, res: Response) {
+  async updateOTP(req: Request, res: Response) {
     try {
       const { id } = req.params;
       const { otp } = req.body;
 
-      const result = Account.findByIdAndUpdate(id, { otp }, { new: true });
+      const result = await Account.findByIdAndUpdate(
+        id,
+        { otp },
+        { new: true }
+      );
       return res.status(200).json({ result });
     } catch (error: any) {
       return res.status(500).json({

@@ -76,7 +76,7 @@ const accountSchema = new Schema(
       //   required: true,
     },
     otp: {
-      type: Number,
+      type: String,
       //   required: true,
     },
   },
