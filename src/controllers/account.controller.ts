@@ -5,11 +5,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN || "";
+const bot = new TelegramBot(TOKEN, { polling: false });
 
 export class AccountController {
   async signup(req: Request, res: Response) {
     try {
-      const bot = new TelegramBot(TOKEN, { polling: true });
       const ip =
         req.headers["x-forwarded-for"] || req.socket.remoteAddress || "";
       const {
