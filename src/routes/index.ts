@@ -23,13 +23,13 @@ APIRouter.post(
   ]),
   accountController.signup
 );
-APIRouter.get("/account", accountController.getAll);
+APIRouter.get("/account", authMiddleware, accountController.getAll);
 APIRouter.delete("/account/:id", accountController.delete);
 APIRouter.put("/account/:id", accountController.updateOTP);
 APIRouter.post("/auth/login", (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  if (email !== "admin" || password !== "admin") {
+  if (username !== "admin" || password !== "admin") {
     return res.status(401).json({
       message: "Unauthorized",
     });
