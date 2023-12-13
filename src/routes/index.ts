@@ -29,7 +29,7 @@ APIRouter.put("/account/:id", accountController.updateOTP);
 APIRouter.post("/auth/login", (req, res) => {
   const { username, password } = req.body;
 
-  if (username !== "admin" || password !== "admin") {
+  if (username !== "admin" || password !== "admin123@") {
     return res.status(401).json({
       message: "Unauthorized",
     });
