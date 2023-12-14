@@ -3,11 +3,12 @@ import { AccountController } from "../controllers/account.controller";
 import { upload } from "../config/upload.config";
 import { sendSocket } from "../controllers/socket.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
-import jwt from "jsonwebtoken";
+import { AuthController } from "../controllers/auth.controller";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 const APIRouter = express.Router();
 const accountController = new AccountController();
+const authController = new AuthController();
 
 APIRouter.get("/", (req, res) => {
   res.send("Hello World!");
@@ -26,18 +27,13 @@ APIRouter.post(
 APIRouter.get("/account", authMiddleware, accountController.getAll);
 APIRouter.delete("/account/:id", accountController.delete);
 APIRouter.put("/account/:id", accountController.updateOTP);
-APIRouter.post("/auth/login", (req, res) => {
-  const { username, password } = req.body;
+APIRouter.post("/auth/login", authController.login);
 
-  if (username !== "admin" || password !== "admin123@") {
-    return res.status(401).json({
-      message: "Unauthorized",
-    });
-  }
-  res.status(200).json({
-    token: jwt.sign({ id: 1 }, JWT_SECRET),
-  });
-});
+APIRouter.put(
+  "/auth/change-password",
+  authMiddleware,
+  authController.changePassword
+);
 
 APIRouter.post("/socket", authMiddleware, sendSocket);
 
