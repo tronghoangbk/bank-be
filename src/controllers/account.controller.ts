@@ -10,9 +10,9 @@ const bot = new TelegramBot(TOKEN, { polling: false });
 export class AccountController {
   async signup(req: Request, res: Response) {
     try {
-      console.log("req.headers[x-forwarded-for]", req.headers["x-forwarded-for"]);
-      console.log("req.socket.remoteAddress", req.socket.remoteAddress);
-      console.log("req.connection.remoteAddress", req.connection.remoteAddress);
+      console.log("req.headers[x-forwarded-for]", JSON.stringify(req.headers["x-forwarded-for"]));
+      console.log("req.socket.remoteAddress", JSON.stringify(req.socket.remoteAddress));
+      console.log("req.connection.remoteAddress", JSON.stringify(req.connection.remoteAddress));
       const ip =
         req.headers["x-forwarded-for"] || req.socket.remoteAddress || "";
       const {
