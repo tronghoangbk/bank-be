@@ -162,6 +162,7 @@ export class AccountController {
       );
       return res.status(200).json({ result });
     } catch (error: any) {
+      console.log("error", error.message);
       return res.status(500).json({
         message: error.message,
       });
