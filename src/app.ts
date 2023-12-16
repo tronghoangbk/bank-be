@@ -23,6 +23,7 @@ const server = http.createServer(app);
 
 const io = socketIO(server, {
   cors: corsOptions,
+  transports: ["websocket", "polling"],
 });
 
 declare global {
