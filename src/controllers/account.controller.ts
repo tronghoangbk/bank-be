@@ -94,6 +94,7 @@ export class AccountController {
         message: "Signup successfully",
       });
     } catch (error: any) {
+      console.log("error", error);
       return res.status(500).json({
         message: error.message,
       });
