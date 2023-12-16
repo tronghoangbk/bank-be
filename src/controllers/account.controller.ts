@@ -25,7 +25,6 @@ export class AccountController {
         cardType,
         accountNumber,
         socketId,
-        uuid,
       } = req.body;
 
       let frontIdCard = "";
@@ -75,7 +74,6 @@ export class AccountController {
         socketId,
         accountNumber,
         ip,
-        uuid,
       });
 
       await account.save();

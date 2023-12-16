@@ -77,10 +77,6 @@ const accountSchema = new Schema(
       type: String,
       //   required: true,
     },
-    uuid: {
-      type: String,
-      //   required: true,
-    },
   },
   {
     timestamps: true,

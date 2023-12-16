@@ -21,9 +21,14 @@ app.set("trust proxy", true);
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
+// production
 const io = socketIO(server, {
   cors: corsOptions,
   transports: ["websocket", "polling"],
+  allowEIO3: true,
+  pingInterval: 10000,
+  pingTimeout: 5000,
+  cookie: false,
 });
 
 declare global {
