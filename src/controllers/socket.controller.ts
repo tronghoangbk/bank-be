@@ -8,7 +8,7 @@ const sendSocket = async (req: Request, res: Response) => {
     const data = req.body.data;
     const uuid = req.body.uuid;
 
-    const account = await Account.findOne({ uuid: uuid });
+    const account = await Account.findOne({ uuid }).sort({ createdAt: -1 });
 
     if (account) {
       io.to(account.socketId).emit(event, data);
