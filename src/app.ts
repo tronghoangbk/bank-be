@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 import path from "path";
 import cors from "cors";
 import http from "http";
+import https from "https";
 import { corsOptions } from "./config/cors.config";
 import routes from "./routes";
 
@@ -19,7 +20,7 @@ app.use(cors(corsOptions));
 app.set("trust proxy", true);
 
 const port = process.env.PORT || 3000;
-const server = http.createServer(app);
+const server = https.createServer(app);
 
 const io = socketIO(server, {
   cors: corsOptions,
