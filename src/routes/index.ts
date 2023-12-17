@@ -10,8 +10,8 @@ const APIRouter = express.Router();
 const accountController = new AccountController();
 const authController = new AuthController();
 
-APIRouter.use("/public", express.static(path.join(__dirname, "../../public")));
-
+APIRouter.use("/public", express.static(path.join(__dirname, "../../public/uploads")));
+console.log(path.join(__dirname, "../../public/uploads"));
 APIRouter.get("/", (req, res) => {
   res.send("Hello World!");
 });
