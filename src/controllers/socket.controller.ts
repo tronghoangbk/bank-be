@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { Account } from "../models/account.model";
 
 const sendSocket = async (req: Request, res: Response) => {
   try {
