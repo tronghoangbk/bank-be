@@ -5,12 +5,9 @@ dotenv.config();
 
 const uuid = require("uuid");
 
-const DOMAIN = process.env.DOMAIN || "";
-const UPLOAD_PATH = process.env.UPLOAD_PATH || "";
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, `../../${UPLOAD_PATH}`));
+    cb(null, path.join(__dirname, "../../public/uploads"));
   },
   filename: function (req, file, cb) {
     cb(null, `${uuid.v4()}-${file.originalname}`);
