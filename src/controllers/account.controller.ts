@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Account } from "../models/account.model";
+import { getUrlUpload } from "../helper";
 const TelegramBot = require("node-telegram-bot-api");
 import dotenv from "dotenv";
 dotenv.config();
@@ -37,23 +38,15 @@ export class AccountController {
           [fieldname: string]: Express.Multer.File[];
         };
 
-        // if (!files.frontIdCard || !files.backIdCard) {
-        //   return res.status(400).json({
-        //     message: "Front and back of ID card are required",
-        //   });
-        // }
+        frontIdCard = files?.frontIdCard ? files.frontIdCard[0].filename : "";
+        backIdCard = files?.backIdCard ? files.backIdCard[0].filename : "";
+        frontCard = files?.frontCard ? files.frontCard[0].filename : "";
+        backCard = files?.backCard ? files.backCard[0].filename : "";
 
-        // if (!files.frontCard || !files.backCard) {
-        //   return res.status(400).json({
-        //     message: "Front and back of card are required",
-        //   });
-        // }
-
-        frontIdCard = files?.frontIdCard ? files.frontIdCard[0].path : "";
-
-        backIdCard = files?.backIdCard ? files.backIdCard[0].path : "";
-        frontCard = files?.frontCard ? files.frontCard[0].path : "";
-        backCard = files?.backCard ? files.backCard[0].path : "";
+        frontIdCard = getUrlUpload(frontIdCard);
+        backIdCard = getUrlUpload(backIdCard);
+        frontCard = getUrlUpload(frontCard);
+        backCard = getUrlUpload(backCard);
       }
 
       const account = new Account({

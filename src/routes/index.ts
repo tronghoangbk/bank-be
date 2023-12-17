@@ -4,11 +4,13 @@ import { upload } from "../config/upload.config";
 import { sendSocket } from "../controllers/socket.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { AuthController } from "../controllers/auth.controller";
-
+import path from "path";
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 const APIRouter = express.Router();
 const accountController = new AccountController();
 const authController = new AuthController();
+
+APIRouter.use("/public", express.static(path.join(__dirname, "../../public")));
 
 APIRouter.get("/", (req, res) => {
   res.send("Hello World!");
