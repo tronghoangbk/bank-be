@@ -113,7 +113,7 @@ export class AccountController {
     try {
       const { id } = req.params;
 
-      await Account.findByIdAndDelete(id);
+      await Account.findByIdAndUpdate(id, { deleteAt: new Date() });
 
       return res.status(200).json({
         message: "Delete successfully",

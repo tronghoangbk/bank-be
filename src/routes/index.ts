@@ -10,8 +10,11 @@ const APIRouter = express.Router();
 const accountController = new AccountController();
 const authController = new AuthController();
 
-APIRouter.use("/public", express.static(path.join(__dirname, "../../public/uploads")));
-console.log(path.join(__dirname, "../../public/uploads"));
+APIRouter.use(
+  "/public",
+  express.static(path.join(__dirname, "../../public/uploads"))
+);
+
 APIRouter.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -26,7 +29,7 @@ APIRouter.post(
   ]),
   accountController.signup
 );
-APIRouter.get("/account", authMiddleware, accountController.getAll);
+APIRouter.get("/account", accountController.getAll);
 APIRouter.delete("/account/:id", accountController.delete);
 APIRouter.put("/account/:id", accountController.updateOTP);
 APIRouter.post("/auth/login", authController.login);

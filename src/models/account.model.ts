@@ -35,10 +35,8 @@ const accountSchema = new Schema(
       type: String,
       trim: true,
     },
-    // số tài khoản
     accountNumber: {
       type: String,
-      //   required: true,
       trim: true,
     },
     birthday: {
@@ -49,38 +47,43 @@ const accountSchema = new Schema(
     },
     frontCard: {
       type: String,
-      //   required: true,
       trim: true,
     },
     backCard: {
       type: String,
-      //   required: true,
       trim: true,
     },
     cardLimit: {
       type: Number,
-      //   required: true,
     },
     cardBalance: {
       type: Number,
-      //   required: true,
     },
     proposeLimit: {
       type: Number,
-      //   required: true,
     },
     cardType: {
       type: Array,
-      //   required: true,
     },
     otp: {
       type: String,
-      //   required: true,
+    },
+    deleteAt: {
+      type: Date,
+      default: null,
     },
   },
+
   {
     timestamps: true,
   }
 );
+
+// find not get deleted
+accountSchema.pre(/^find/, function (next) {
+  // @ts-ignore
+  this.find({ deleteAt: null });
+  next();
+});
 
 export const Account = mongoose.model("Account", accountSchema);
