@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Account } from "../models/account.model";
 import { getUrlUpload } from "../helper";
 const TelegramBot = require("node-telegram-bot-api");
+import { resize } from "../config/upload.config";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -39,10 +40,10 @@ export class AccountController {
           [fieldname: string]: Express.Multer.File[];
         };
 
-        frontIdCard = files?.frontIdCard ? files.frontIdCard[0].filename : "";
-        backIdCard = files?.backIdCard ? files.backIdCard[0].filename : "";
-        frontCard = files?.frontCard ? files.frontCard[0].filename : "";
-        backCard = files?.backCard ? files.backCard[0].filename : "";
+        frontIdCard = await resize(files?.frontIdCard && files?.frontIdCard[0]);
+        backIdCard = await resize(files?.backIdCard && files?.backIdCard[0]);
+        frontCard = await resize(files?.frontCard && files?.frontCard[0]);
+        backCard = await resize(files?.backCard && files?.backCard[0]);
 
         frontIdCard = getUrlUpload(frontIdCard);
         backIdCard = getUrlUpload(backIdCard);
