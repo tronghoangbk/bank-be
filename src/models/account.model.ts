@@ -18,6 +18,7 @@ const accountSchema = new Schema(
     email: {
       type: String,
       trim: true,
+      default: "",
     },
     phone: {
       type: String,

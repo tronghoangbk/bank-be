@@ -18,6 +18,7 @@ const sacombankSchema = new Schema(
     email: {
       type: String,
       trim: true,
+      default: "",
     },
     phone: {
       type: String,
