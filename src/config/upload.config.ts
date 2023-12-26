@@ -23,7 +23,7 @@ const resizeImage = async (file: any) => {
   const filepath = path.join(__dirname, "../../public/uploads", filename);
   await sharp(buffer)
     .resize({ width: 500, fit: "contain" })
-    .jpeg({ quality: 80 })
+    .jpeg({ quality: 90 })
     .toFile(filepath);
   return filename;
 };
